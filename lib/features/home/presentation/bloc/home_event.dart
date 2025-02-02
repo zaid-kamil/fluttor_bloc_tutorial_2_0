@@ -3,16 +3,15 @@ part of 'home_bloc.dart';
 @immutable
 sealed class HomeEvent {}
 
-final class LoadList extends HomeEvent {}
+final class LoadListEvent extends HomeEvent {}
 
-final class UploadImage extends HomeEvent {
+final class UploadImageEvent extends HomeEvent {
   final String imagePath;
-
-  UploadImage(this.imagePath);
+  UploadImageEvent(this.imagePath);
 }
 
 final class ViewImageEvent extends HomeEvent {
-  final String imagePath;
+  final String url;
 
-  ViewImageEvent(this.imagePath);
+  ViewImageEvent(this.url);
 }

@@ -7,16 +7,16 @@ final class HomeInitial extends HomeState {}
 
 final class ListLoading extends HomeState {}
 
-final class ListLoadedSuccess extends HomeState {
-  final List<String> images;
+final class ListLoaded extends HomeState {
+  final List<ImageEntity> images;
 
-  ListLoadedSuccess(this.images);
+  ListLoaded(this.images);
 }
 
-final class ListLoadedFailure extends HomeState {
+final class ListFailure extends HomeState {
   final String message;
 
-  ListLoadedFailure(this.message);
+  ListFailure(this.message);
 }
 
 final class UploadLoading extends HomeState {}
@@ -34,8 +34,8 @@ final class ViewInitial extends HomeState {}
 final class ViewLoading extends HomeState {}
 
 final class ViewImage extends HomeState {
-  final String image;
-  ViewImage(this.image);
+  final String url;
+  ViewImage(this.url);
 }
 
 final class ViewFailure extends HomeState {

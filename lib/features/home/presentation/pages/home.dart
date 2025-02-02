@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_adaptive_scaffold/flutter_adaptive_scaffold.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/list_images.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/upload_image.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/view_image.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/widgets/two_column_view.dart';
-import 'package:fluttor_bloc_tutorial/shared/routes.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/pages/list_images.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/pages/upload_image.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/pages/view_image.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/widgets/two_column_view.dart';
+import 'package:flutter_bloc_tutorial/shared/routes.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
@@ -29,6 +29,7 @@ class _HomePageState extends State<HomePage> {
         selectedIndex: selectedNavigation,
         onDestinationSelected: onDestinationSelected,
         destinations: railDestinations,
+        padding: EdgeInsets.all(0),
       ),
     );
   }
@@ -54,6 +55,7 @@ class _HomePageState extends State<HomePage> {
         destinations: railDestinations,
         onDestinationSelected: onDestinationSelected,
         extended: true,
+        padding: EdgeInsets.all(0),
       ),
     );
   }
@@ -71,7 +73,7 @@ class _HomePageState extends State<HomePage> {
           key: const Key("Body small"),
           builder: (_) => selectPage(selectedNavigation),
         ),
-        Breakpoints.medium: SlotLayout.from(
+        Breakpoints.mediumAndUp: SlotLayout.from(
           key: const Key("Body medium"),
           builder: (_) => TwoColumnView(
             selectedNavigation: selectedNavigation,
@@ -99,8 +101,6 @@ class _HomePageState extends State<HomePage> {
   Widget selectPage(int selectedNavigation) {
     if (selectedNavigation == 0) {
       return ListImagesPage();
-    } else if (selectedNavigation == 1) {
-      return ViewImagePage();
     } else {
       return UploadImagePage();
     }

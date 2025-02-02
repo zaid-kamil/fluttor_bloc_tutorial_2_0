@@ -1,7 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/list_images.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/upload_image.dart';
-import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/view_image.dart';
 
 class TwoColumnView extends StatelessWidget {
   final int selectedNavigation;
