@@ -1,7 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:fluttor_bloc_tutorial/features/home/presentation/pages/home.dart';
-import 'package:fluttor_bloc_tutorial/shared/presentation/pages/responsive_layout.dart';
 
 class ImageShareApp extends StatelessWidget {
   const ImageShareApp({super.key});
