@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc_tutorial/features/home/data/model/firebase_image.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/domain/entities/image_entity.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/list_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/list_bloc.dart';
 
 class ImageCard extends StatelessWidget {
   final ImageEntity image;
@@ -9,19 +11,35 @@ class ImageCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        children: [
-          Image.network(
-            image.url,
-            fit: BoxFit.cover,
+    return BlocBuilder<ListBloc, ListState>(
+      builder: (context, state) {
+        return Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
           ),
-          Text(image.name),
-        ],
-      ),
+          child: Column(
+            children: [
+              Container(
+                height: 200,
+                width: 200,
+                decoration: BoxDecoration(
+                  image: DecorationImage(
+                    image: NetworkImage(image.url),
+                    fit: BoxFit.cover,
+                  ),
+                ),
+              ),
+              Text(image.name),
+              ElevatedButton(
+                onPressed: () {
+                  context.read<ListBloc>().add(DeleteImageEvent(image));
+                },
+                child: const Text('Delete'),
+              ),
+            ],
+          ),
+        );
+      },
     );
   }
 }

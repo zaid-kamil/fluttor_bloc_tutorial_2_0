@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:flutter/cupertino.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc_tutorial/features/home/data/data_sources/remote_data_source.dart';
 import 'package:flutter_bloc_tutorial/features/home/domain/entities/image_entity.dart';
 import 'package:flutter_bloc_tutorial/features/home/domain/repositories/image_repository.dart';
@@ -29,6 +29,16 @@ class ImageRepositoryImpl implements ImageRepository {
 
   @override
   Future<void> uploadImage(String image) {
-    return remoteDataSource.uploadImage(image);
+    return remoteDataSource.uploadImageUsingPath(image);
+  }
+
+  @override
+  Future<void> uploadImageWeb(String name, Uint8List imageBytes) {
+    return remoteDataSource.uploadImageUsingBytes(name, imageBytes);
+  }
+
+  @override
+  Future<void> deleteImage(ImageEntity image) {
+    return remoteDataSource.deleteImage(image);
   }
 }

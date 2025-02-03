@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/home_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/list_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/presentation/widgets/image_card.dart';
 
 class ListImagesPage extends StatelessWidget {
@@ -12,7 +12,7 @@ class ListImagesPage extends StatelessWidget {
       appBar: AppBar(
         title: const Text("List Images"),
       ),
-      body: BlocConsumer<HomeBloc, HomeState>(
+      body: BlocConsumer<ListBloc, ListState>(
         listener: (context, state) {
           if (state is ListFailure) {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -38,19 +38,21 @@ class ListImagesPage extends StatelessWidget {
                       },
                     );
             case ListFailure():
-              return const Center(
-                child: Text("Failed to fetch images"),
+              return Center(
+                child: Text("Failed to fetch images ${state.message}"),
               );
             case ListLoading():
               return const Center(
                 child: CircularProgressIndicator(),
               );
             default:
-              return ElevatedButton(
-                onPressed: () {
-                  context.read<HomeBloc>().getImages();
-                },
-                child: const Text("Fetch Images"),
+              return Center(
+                child: ElevatedButton(
+                  onPressed: () {
+                    context.read<ListBloc>().operations.getImages();
+                  },
+                  child: const Text("Fetch Images"),
+                ),
               );
           }
         },

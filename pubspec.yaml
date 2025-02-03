@@ -41,7 +41,9 @@ dependencies:
   image_picker: any
   image_picker_web: any
   firebase_storage: any
-
+  quickalert: any
+  mime_type: any
+  image_picker_for_web: ^3.0.6
 dev_dependencies:
   flutter_test:
     sdk: flutter
@@ -63,6 +65,8 @@ flutter:
   # included with your application, so that you can use the icons in
   # the material Icons class.
   uses-material-design: true
+  assets:
+    - assets/
 
   # To add assets to your application, add an assets section, like this:
   # assets:

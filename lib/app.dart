@@ -3,11 +3,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/data/data_sources/remote_data_source.dart';
 import 'package:flutter_bloc_tutorial/features/home/data/repositories/image_repositories_impl.dart';
-import 'package:flutter_bloc_tutorial/features/home/domain/use_cases/upload_image.dart';
+import 'package:flutter_bloc_tutorial/features/home/domain/use_cases/image_operations.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/list_bloc.dart';
+import 'package:flutter_bloc_tutorial/features/home/presentation/bloc/upload_bloc.dart';
 import 'package:flutter_bloc_tutorial/features/home/presentation/pages/home.dart';
-
-import 'features/home/domain/use_cases/get_images.dart';
-import 'features/home/presentation/bloc/home_bloc.dart';
 
 class ImageShareApp extends StatelessWidget {
   const ImageShareApp({super.key});
@@ -16,13 +15,16 @@ class ImageShareApp extends StatelessWidget {
   Widget build(BuildContext context) {
     final remoteDataSource = RemoteDataSource();
     final imageRepository = ImageRepositoryImpl(remoteDataSource);
-    final getImages = GetImages(imageRepository);
-    final uploadImage = UploadImage(imageRepository);
-    return BlocProvider(
-      create: (_) => HomeBloc(
-        getImages: getImages,
-        uploadImage: uploadImage,
-      )..add(LoadListEvent()),
+    final operations = ImageOperations(imageRepository);
+    var appBlocProviders = [
+      BlocProvider(
+        create: (context) =>
+            ListBloc(operations: operations)..add(LoadListEvent()),
+      ),
+      BlocProvider(create: (context) => UploadBloc(operations: operations)),
+    ];
+    return MultiBlocProvider(
+      providers: appBlocProviders,
       child: MaterialApp(
         title: 'Image Share',
         theme: ThemeData(
